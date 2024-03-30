@@ -1,5 +1,4 @@
 const getCrafts = async() => {
-
     const url = "http://localhost:3000/api/crafts";
 
     try {
@@ -11,7 +10,7 @@ const getCrafts = async() => {
 };
 
 const showCrafts = async() => {
-    let crafts = await getCrafts();
+    const crafts = await getCrafts();
     
     crafts.forEach((craft) => {
         const section = getCraftSection(craft);
@@ -33,7 +32,8 @@ const getCraftSection = (craft) => {
     img.src = "http://localhost:3000/images/" + craft.image;
     mainSection.append(img);
 
-    mainSection.onClick = (e) => {
+    mainSection.onclick = (e) => {
+        console.log("i am in onclick");
         document.getElementById("dialog").style.display = "block";
 
         const details = document.getElementById("dialog-details");
@@ -52,11 +52,11 @@ const getCraftSection = (craft) => {
         details.append(myName);
 
         const myDescription = document.createElement("p");
-        myDescription.innerHTML = craft.description;
+        myDescription.innerHTML = "Description: " + craft.description;
         details.append(myDescription);
 
         const mySupplies = document.createElement("p");
-        mySupplies.innerHTML = craft.supplies;
+        mySupplies.innerHTML = "Supplies: " + craft.supplies;
         details.append(mySupplies);
     };
 

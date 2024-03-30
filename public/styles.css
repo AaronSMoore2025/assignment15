@@ -1,5 +1,7 @@
 img {
     padding: 5px;
+    width: 250px;
+    height: 250px;
 }
 
 #main-header {
@@ -25,10 +27,12 @@ img {
 #json-info {
     display: flex;
     flex-wrap: wrap;
+    margin-left: 7.5%;
+   
 }
 
 #mainContent {
-    flex: 30%;
+    flex: 25%;
     padding: 0px;
     margin: 0px;
 }
@@ -45,11 +49,11 @@ img {
     }
 
     #mainSection {
-        flex: 20%;
+        flex: 25%;
     }
 }
 
-@media only screen and (min-width: 768px){
+@media only screen and (min-width: 800px){
     #dialog-content{
         display: flex;
     }
