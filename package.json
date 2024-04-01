@@ -10,7 +10,10 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "cors": "^2.8.5",
     "express": "^4.19.2",
-    "i": "^0.3.7"
+    "i": "^0.3.7",
+    "joi": "^17.12.2",
+    "multer": "^1.4.5-lts.1"
   }
 }

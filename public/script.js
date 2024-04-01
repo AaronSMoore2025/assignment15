@@ -69,7 +69,7 @@ const getCraftSection = (craft) => {
 
 const addCraft = async (e) => {
     e.preventDefault();
-    const form = document.getElemenetById("add-craft-form");
+    const form = document.getElementById("add-craft-form");
     const formData = new FormData(form);
     let respnse;
     formData.append("crafts", getCrafts());
@@ -81,7 +81,7 @@ const addCraft = async (e) => {
         body: formData,
     });
 
-    if (respnse.status != 200) {
+    if (response.status != 200) {
         console.log("Error posting data");
     }
 
@@ -103,7 +103,7 @@ const getSupplies = () => {
 }
 
 const resetForm = () => {
-    const form = document.getElementById("add-ingredient-form");
+    const form = document.getElementById("add-craft-form");
     form.reset();
     document.getElementById("supply-boxes").innerHTML = "";
     document.getElementById("img-prev").src = "";
