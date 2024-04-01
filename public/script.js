@@ -67,4 +67,81 @@ const getCraftSection = (craft) => {
     return mainSection;
 };
 
+const addCraft = async (e) => {
+    e.preventDefault();
+    const form = document.getElemenetById("add-craft-form");
+    const formData = new FormData(form);
+    let respnse;
+    formData.append("crafts", getCrafts());
+
+    console.log(...formData);
+
+    response = await("/api/crafts", {
+        method: "POST",
+        body: formData,
+    });
+
+    if (respnse.status != 200) {
+        console.log("Error posting data");
+    }
+
+    await respnse.json();
+    resetForm();
+    document.getElementById("dialog").style.display = "none";
+    showCrafts();
+}
+
+const getSupplies = () => {
+    const inputs = document.querySelectorAll("#supply-boxes input");
+    let supplies = [];
+
+    inputs.forEach((input) => {
+        supplies.push(input.value);
+    });
+
+    return supplies;
+}
+
+const resetForm = () => {
+    const form = document.getElementById("add-ingredient-form");
+    form.reset();
+    document.getElementById("supply-boxes").innerHTML = "";
+    document.getElementById("img-prev").src = "";
+};
+
+const showCraftForm = (e) => {
+    e.preventDefault();
+    openDialog("add-craft-form");
+    resetForm();
+}
+
+const addSupplies = (e) => {
+    e.preventDefault();
+    const section = document.getElementById("supply-boxes");
+    const input = document.createElement("input");
+    input.type = "text";
+    section.append(input);
+}
+
+const openDialog = (id) => {
+    document.getElementById("dialog").style.display = "block";
+    document.querySelectorAll("#dialog-details > *").forEach((item) => {
+        item.classList.add("hidden");
+    });
+    document.getElementById(id).classList.remove("hidden");
+}
+
 showCrafts();
+document.getElementById("add-craft-form").onsubmit = addCraft;
+document.getElementById("add-link").onclick = showCraftForm;
+document.getElementById("add-supply").onclick = addSupplies;
+
+document.getElementById("img").onchange = (e) => {
+    if (!e.target.files.length) {
+        document.getElementById("img-prev").src = "";
+        return;
+    }
+    document.getElementById("img-prev").src = URL.createObjectURL(
+        e.target.files.item(0)
+    );
+};
