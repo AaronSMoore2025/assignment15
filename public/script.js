@@ -1,5 +1,5 @@
 const getCrafts = async() => {
-    const url = "http://localhost:3000/api/crafts";
+    const url = "/api/crafts";
 
     try {
         const response = await fetch(url);
@@ -29,7 +29,7 @@ const getCraftSection = (craft) => {
     const mainSection = document.createElement("section");
     mainSection.id = "mainSection";
     const img = document.createElement("img");
-    img.src = "http://localhost:3000/images/" + craft.image;
+    img.src = "/images/" + craft.image;
     mainSection.append(img);
 
     mainSection.onclick = (e) => {
@@ -43,7 +43,7 @@ const getCraftSection = (craft) => {
 
         const myImage = document.createElement("img");
         myImage.src = "";
-        myImage.src = "http://localhost:3000/images/" + craft.image;
+        myImage.src = "/images/" + craft.image;
         myImage.id = "myImage";
         imageDetails.append(myImage);
 

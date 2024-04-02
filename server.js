@@ -348,6 +348,7 @@ app.get("/api/crafts", (req, res) => {
 });
       
 app.post("/api/crafts", upload.single("img"), (req, res) => {
+    console.log("in post");
     const result = validateCrafts(req.body);
 
   if (result.error) {
@@ -364,9 +365,9 @@ app.post("/api/crafts", upload.single("img"), (req, res) => {
   };
 
   if (req.file) {
-    crafts.img = "images/" + req.file.filename;
+    craft.image = req.file.filename;
   }
-
+  
   crafts.push(craft);
   res.send(crafts);
     
