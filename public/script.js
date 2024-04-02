@@ -34,11 +34,11 @@ const getCraftSection = (craft) => {
 
     mainSection.onclick = (e) => {
         console.log("i am in onclick");
-        document.getElementById("dialog").style.display = "block";
+        document.getElementById("dialog-2").style.display = "block";
 
-        const details = document.getElementById("dialog-details");
+        const details = document.getElementById("dialog-details-2");
         details.innerHTML = "";
-        const imageDetails = document.getElementById("dialog-image");
+        const imageDetails = document.getElementById("dialog-img-2");
         imageDetails.innerHTML = "";
 
         const myImage = document.createElement("img");
@@ -60,6 +60,10 @@ const getCraftSection = (craft) => {
         details.append(mySupplies);
     };
 
+    document.getElementById("dialog-close-2").onclick = () => {
+        document.getElementById("dialog-2").style.display = "none";
+    };
+
     document.getElementById("dialog-close").onclick = () => {
         document.getElementById("dialog").style.display = "none";
     };
@@ -71,12 +75,13 @@ const addCraft = async (e) => {
     e.preventDefault();
     const form = document.getElementById("add-craft-form");
     const formData = new FormData(form);
-    let respnse;
-    formData.append("crafts", getCrafts());
+    let response;
+    //formData.append("crafts", getCrafts());
+    formData.append("supplies", getSupplies());
 
     console.log(...formData);
 
-    response = await("/api/crafts", {
+    response = await fetch("/api/crafts", {
         method: "POST",
         body: formData,
     });
@@ -85,7 +90,7 @@ const addCraft = async (e) => {
         console.log("Error posting data");
     }
 
-    await respnse.json();
+    await response.json();
     resetForm();
     document.getElementById("dialog").style.display = "none";
     showCrafts();
