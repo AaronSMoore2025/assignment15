@@ -374,6 +374,31 @@ app.post("/api/crafts", upload.single("img"), (req, res) => {
 
 });
 
+app.put("api/crafts/:id", upload.single("img"), (req,res)=>{
+    console.log(crafts);
+
+    const craft = crafts.find((r)=>r._id === parseInt(req.params.id));
+    if(!craft) res.status(400).send("Craft with id was not found");
+
+    const result = validateCrafts(req.body);
+
+    if(result.error){
+        res.status(400).send(result.error.details[0].message);
+        return;
+    }
+
+    craft.name = req.body.name;
+    craft.description = req.body.description; // maybe a -
+    craft.supplies = req.body.supplies.split(",");
+
+    if(req.file) {
+        craft.img = "/images" + req.file.filename;
+    }
+
+    res.send(craft);
+
+});
+
 const validateCrafts = (craft) => {
     const schema = Joi.object({
       _id: Joi.allow(""),
