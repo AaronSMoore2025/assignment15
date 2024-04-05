@@ -72,12 +72,13 @@ const getCraftSection = (craft) => {
         const spoon = document.createElement("section");
         spoon.classList.add("spoon");
         mainSection.append(spoon);
+
         eLink.onclick = showCraftForm;
+        dLink.onclick = deleteCraft.bind(this, craft);
 
         populateEditForm(craft);
     };
 
-    populateEditForm(craft);
     document.getElementById("dialog-close-2").onclick = () => {
         document.getElementById("dialog-2").style.display = "none";
     };
@@ -164,6 +165,25 @@ const addCraft = async (e) => {
     document.getElementById("dialog").style.display = "none";
     showCrafts();
 }
+
+const deleteCraft = async(craft) =>{
+    let response = await fetch(`/api/crafts/${craft._id}`,{
+      method:"DELETE",
+      headers:{
+        "Content-Type":"application/json;charset=utf-8",
+      },
+    });
+  
+    if(response.status!= 200){
+      console.log("Error deleting");
+      return;
+    }
+  
+    let result = await response.json();
+    resetForm();
+    showRecipes();
+    document.getElementById("dialog").style.display = "none";
+};
 
 const getSupplies = () => {
     const inputs = document.querySelectorAll("#supply-boxes input");
