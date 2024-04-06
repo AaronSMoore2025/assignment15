@@ -32,16 +32,40 @@ img {
 }
 
 #mainContent {
-    flex: 25%;
+    display: flex;
     padding: 0px;
     margin: 0px;
 }
+
+.hidden {
+    display: none;
+}
+
+#craft-list {
+    display: flex;
+    flex-wrap: wrap;
+    padding: 0px;
+    margin: 0px;
+}
+
+#mainSection {
+    margin: 15px;
+}
+
+
+
 
 
 @media (max-width: 800px){
     #json-info{
         flex-direction: column;
     }
+
+    #craft-list {
+        flex-direction: column;
+    }
+
+
 }
 
 @media only screen and (max-width: 800px){
@@ -50,12 +74,17 @@ img {
     }
 
     #mainSection {
-        flex: 25%;
+        flex: 20%;
     }
+    
 }
 
 @media only screen and (min-width: 800px){
     #dialog-content-2{
         display: flex;
+    }
+
+    #craft-list{
+        flex: 20%;
     }
 }

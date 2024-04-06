@@ -392,12 +392,25 @@ app.put("/api/crafts/:id", upload.single("img"), (req,res)=>{
     craft.supplies = req.body.supplies.split(",");
 
     if(req.file) {
-        craft.img = "/images" + req.file.filename;
+        craft.image = req.file.filename;
     }
 
     res.send(craft);
 
 });
+
+app.delete("/api/crafts/:id", (req,res)=>{
+    const craft = crafts.find((r)=>r._id === parseInt(req.params.id));
+  
+    if(!craft){
+      res.status(404).send("id not found");
+      return;
+    }
+  
+    const index = crafts.indexOf(craft);
+    crafts.splice(index, 1);
+    res.send(craft);
+  });
 
 const validateCrafts = (craft) => {
     const schema = Joi.object({
