@@ -374,7 +374,7 @@ app.post("/api/crafts", upload.single("img"), (req, res) => {
 
 });
 
-app.put("api/crafts/:id", upload.single("img"), (req,res)=>{
+app.put("/api/crafts/:id", upload.single("img"), (req,res)=>{
     console.log(crafts);
 
     const craft = crafts.find((r)=>r._id === parseInt(req.params.id));

@@ -10,21 +10,97 @@ const getCrafts = async() => {
 };
 
 const showCrafts = async() => {
-    const crafts = await getCrafts();
-    
+
+    let crafts = await getCrafts();
+    let craftsDiv = document.getElementById("craft-list");
+    //craftsDiv.innerHTML = "";
     crafts.forEach((craft) => {
-        const section = getCraftSection(craft);
-        document.getElementById("json-info").append(section);
+        const mainSection = document.createElement("section");
+        mainSection.id = "mainSection";
+        
+        const myImage = document.createElement("img");
+        myImage.src = "/images/" + craft.image;
+        mainSection.append(myImage);
+
+        document.getElementById("craft-list").append(mainSection);
+        
+
+
+        mainSection.onclick = (e) => {
+            e.preventDefault();
+            displayDetails(craft);
+        };
+
+        
     });
+    //const crafts = await getCrafts();
+    //const mainSection = document.createElement("section");
+    //let mainPage = document.getElementById("json-info");
+    //mainPage.innerHTML = "";
+
+    //crafts.forEach((craft) => {
+
+        //const section = getCraftSection(craft);
+        //displayDetails(craft);
+        //document.getElementById("json-info").append(section);
+    //});
     
-    //let menu = document.getElementById("json-info");
-    /*
-    for(let i = 0; i < crafts.length; i++){
-        menu.children.item(i % 4).append(getCraftImage(crafts[i]));
-    }
-    */
+    
 };
 
+const displayDetails = (craft) => {
+    openDialog("craft-details");
+    const craftDetails = document.getElementById("craft-details");
+    craftDetails.innerHTML = "";
+    craftDetails.classList.remove("hidden");
+
+    const dLink = document.createElement("a");
+    dLink.innerHTML = "	&#9249;";
+    craftDetails.append(dLink);
+    dLink.id = "delete-link";
+
+    const eLink = document.createElement("a");
+    eLink.innerHTML = "&#9998;";
+    craftDetails.append(eLink);
+    eLink.id = "edit-link";
+
+    const h2 = document.createElement("h2");
+    h2.innerHTML = craft.name;
+    craftDetails.append(h2);
+    console.log(h2);
+
+    const myImage = document.createElement("img");
+    myImage.src = "/images/" + craft.image;
+    craftDetails.append(myImage);
+
+    const p = document.createElement("p");
+    p.innerHTML = "Description: " + craft.description;
+    craftDetails.append(p);
+
+    const p2 = document.createElement("p");
+    p2.innerHTML = "Supplies: " + craft.supplies;
+    craftDetails.append(p2);
+
+    const spoon = document.createElement("section");
+    spoon.classList.add("spoon");
+    craftDetails.append(spoon);
+
+    
+
+    document.getElementById("dialog-details").append(craftDetails);
+
+
+    document.getElementById("dialog-close").onclick = () => {
+        document.getElementById("dialog").style.display = "none";
+    };
+
+    eLink.onclick = showCraftForm;
+    dLink.onclick = deleteCraft.bind(this, craft);
+    populateEditForm(craft);
+
+};
+
+/*
 const getCraftSection = (craft) => {
     const mainSection = document.createElement("section");
     mainSection.id = "mainSection";
@@ -73,10 +149,16 @@ const getCraftSection = (craft) => {
         spoon.classList.add("spoon");
         mainSection.append(spoon);
 
-        eLink.onclick = showCraftForm;
+        eLink.onclick = (e) => {
+            e.preventDefault();
+            openDialog("add-craft-form");
+            populateEditForm(craft);
+        };
+
+
         dLink.onclick = deleteCraft.bind(this, craft);
 
-        populateEditForm(craft);
+        
     };
 
     document.getElementById("dialog-close-2").onclick = () => {
@@ -86,31 +168,35 @@ const getCraftSection = (craft) => {
     document.getElementById("dialog-close").onclick = () => {
         document.getElementById("dialog").style.display = "none";
     };
-    /*
+
+    
     const spoon = document.createElement("section");
     spoon.classList.add("spoon");
     mainSection.append(spoon);
     eLink.onclick = showCraftForm;
     //dLink.onclick = 
-    */
+    
 
     //populateEditForm(craft);
 
     return mainSection;
 };
+*/
+
 
 const populateEditForm = (craft) => {
     const form = document.getElementById("add-craft-form");
     form._id.value = craft._id;
     form.name.value = craft.name;
     form.description.value = craft.description;
-    document.getElementById("img-prev").src = craft.img;
+    document.getElementById("img-prev").src = "/images/" + craft.image;
     populateSupplies(craft.supplies);
 }
 
 const populateSupplies = (supplies) => {
     
     const section = document.getElementById("supply-boxes");
+    section.innerHTML = "";
     supplies.forEach((supply)=>{
         const input = document.createElement("input");
         input.type = "text";
@@ -119,9 +205,6 @@ const populateSupplies = (supplies) => {
     });
     
 };
-
-
-
 
 
 
@@ -181,7 +264,7 @@ const deleteCraft = async(craft) =>{
   
     let result = await response.json();
     resetForm();
-    showRecipes();
+    showCrafts();
     document.getElementById("dialog").style.display = "none";
 };
 
@@ -204,6 +287,7 @@ const resetForm = () => {
 };
 
 const showCraftForm = (e) => {
+    //console.log("I am in show craft Form");
     e.preventDefault();
     openDialog("add-craft-form");
     resetForm();

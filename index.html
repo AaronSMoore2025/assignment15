@@ -10,8 +10,10 @@
             <h1 class="headerClass">Crafts For You</h1>
             <h1>Add Craft: <a href="#" id="add-link">+</a></h1>
         </header>
+
         <div id="json-info"></div>
 
+        
         <div id="dialog-2" class="w3-modal">
             <div class="w3-modal-content">
                 <div class="w3-container">
@@ -23,7 +25,8 @@
                 </div>
             </div>
         </div>
-
+    
+    <div id="craft-list" class="columns">
         <div id="dialog" class="w3-modal">
             <div class="w3-modal-content">
                 <div class="w3-container">
@@ -34,7 +37,7 @@
                         <section id="dialog-image">
                         </section>
                         <section id="dialog-details">
-                            <form id="add-craft-form" method="post" class="hidden">
+                            <form id="add-craft-form" method="POST" class="hidden">
                                 <input type="hidden" id="_id" name="_id">
                                 <p>
                                     <label for="name">Craft Name: </label>
@@ -64,12 +67,13 @@
                                 </p>
                             </form>
 
-                            <section id="recipe-details" class="hidden"></section>
+                            <section id="craft-details" class="hidden"></section>
                         </section>
                     </section>
                 </div>
             </div>
         </div>
+    </div>
     </main>
     <script src="script.js"></script>
 </html>
